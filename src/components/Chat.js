@@ -11,6 +11,7 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [username, setUsername] = useState('');
   const [userColor, setUserColor] = useState('#FFFFFF'); // Default color
+  const [isUsernameSet, setIsUsernameSet] = useState(false);
 
   useEffect(() => {
     // Fetch existing messages from the server
@@ -32,7 +33,7 @@ const Chat = () => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    if (message && username) {
+    if (message && isUsernameSet) {
       socket.emit('sendMessage', { text: message, username, color: userColor });
       setMessage('');
     }
@@ -44,11 +45,11 @@ const Chat = () => {
       // Generate a color based on the username
       const color = randomColor({ seed: username });
       setUserColor(color);
-      // Proceed to show the chat
+      setIsUsernameSet(true); // Set the username and allow chat
     }
   };
 
-  if (!username) {
+  if (!isUsernameSet) {
     return (
       <div className="username-prompt">
         <form onSubmit={handleUsernameSubmit}>
