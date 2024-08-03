@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import Message from './Message';
 import '../styles/Chat.css';
 
-const socket = io('https://your-heroku-app.herokuapp.com'); // Update with your Heroku app URL
+const socket = io('https://chat-app-server-xosu.onrender.com'); // Update with your Render app URL
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
